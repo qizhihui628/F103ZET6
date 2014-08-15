@@ -15,5 +15,6 @@
 #include "task.h"
 #include "queue.h"
 
+void Adc1_Init(void);
 
 #endif /* ADC_H_ */

@@ -25,7 +25,7 @@ void Pwm_Init(void)
 
 
 	 RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO, ENABLE);
-
+	 GPIO_PinRemapConfig(GPIO_Remap_SWJ_NoJTRST, ENABLE);
 	 /* GPIOB Configuration:TIM4 Channel1, 2, 3 and 4 as alternate function push-pull */
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;

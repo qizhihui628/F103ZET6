@@ -17,9 +17,11 @@
 #include "GPIO.H"
 #include "pwm.h"
 #include "dac.h"
+#include "adc.h"
 
 extern void Pwm_Init(void);
 extern xSemaphoreHandle xMutex_vPrintString;
+extern __IO uint16_t ADC1ConvertedValue[10];
 
 void LED_Init(void)
 {
@@ -97,6 +99,7 @@ void vGreen_led_on(void *pvParameters)
 
 void vTask1(void *pvParameters)
 {
+	uint16_t i;
 	uint16_t temp1,temp2;
 	for(;;)
 	{
@@ -112,6 +115,10 @@ void vTask1(void *pvParameters)
 		xSemaphoreTake(xMutex_vPrintString,portMAX_DELAY);
 		{
 			printf("GPIOE IS %x, GPIOG IS %x .\r\n",GPIOE_BUFFER,GPIOG_BUFFER);
+			for(i=0;i<10;i++)
+			{
+				printf("adc%d is %d.\r\n",i,ADC1ConvertedValue[i]);
+			}
 			fflush(stdout);
 		}
 		xSemaphoreGive(xMutex_vPrintString);
@@ -129,6 +136,8 @@ int main(void)
 	uart_init(9600);
 	Pwm_Init();
 	Dac1_Init();
+	Adc1_Init();
+	
 	vSemaphoreCreateBinary(xMutex);
 //	vSemaphoreCreateBinary(xMutex_vPrintString);
 	vPrint_init();

@@ -609,6 +609,21 @@
               <FileType>1</FileType>
               <FilePath>.\usr\GPIO.c</FilePath>
             </File>
+            <File>
+              <FileName>pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\dac.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
