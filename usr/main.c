@@ -18,6 +18,7 @@
 #include "pwm.h"
 #include "dac.h"
 #include "adc.h"
+#include "usart2.h"
 
 extern void Pwm_Init(void);
 extern xSemaphoreHandle xMutex_vPrintString;
@@ -114,6 +115,8 @@ void vTask1(void *pvParameters)
 		Dac1_Set_Vol(500);
 		xSemaphoreTake(xMutex_vPrintString,portMAX_DELAY);
 		{
+			u2_printf("AT+HH\r\n");
+			u2_printf("BT+\r\n");
 			printf("GPIOE IS %x, GPIOG IS %x .\r\n",GPIOE_BUFFER,GPIOG_BUFFER);
 			for(i=0;i<10;i++)
 			{
@@ -134,6 +137,7 @@ int main(void)
 	IO_Init();
 	//LED_Init();
 	uart_init(9600);
+	USART2_Init(9600);
 	Pwm_Init();
 	Dac1_Init();
 	Adc1_Init();
