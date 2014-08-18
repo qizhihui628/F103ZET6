@@ -19,6 +19,7 @@
 #include "dac.h"
 #include "adc.h"
 #include "usart2.h"
+#include "uart4.h"
 
 extern void Pwm_Init(void);
 extern xSemaphoreHandle xMutex_vPrintString;
@@ -117,6 +118,8 @@ void vTask1(void *pvParameters)
 		{
 			u2_printf("AT+HH\r\n");
 			u2_printf("BT+\r\n");
+			u4_printf("AT+HH\r\n");
+	//		u4_printf("BT+\r\n");
 			printf("GPIOE IS %x, GPIOG IS %x .\r\n",GPIOE_BUFFER,GPIOG_BUFFER);
 			for(i=0;i<10;i++)
 			{
@@ -138,6 +141,7 @@ int main(void)
 	//LED_Init();
 	uart_init(9600);
 	USART2_Init(9600);
+	UART4_Init(9600);
 	Pwm_Init();
 	Dac1_Init();
 	Adc1_Init();
@@ -150,7 +154,7 @@ int main(void)
 		//xTaskCreate(vRed_led_on,"vRed_led_on",100,NULL,1,NULL);
 		//xTaskCreate(vGreen_led_on,"vGreen_led_on",100,NULL,2,NULL);
 	}
-	xTaskCreate(vTask1,"vTask1",100,NULL,1,NULL);
+	xTaskCreate(vTask1,"vTask1",200,NULL,1,NULL);
 	xTaskCreate(vIO_Refresh,"vIO_Refresh",50,NULL,2,NULL);
 	xTaskCreate(vPWM_Refresh,"vPWM_Refresh",50,NULL,2,NULL);
 	vTaskStartScheduler();
