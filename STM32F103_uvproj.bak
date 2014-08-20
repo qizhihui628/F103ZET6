@@ -630,6 +630,11 @@
               <FileType>1</FileType>
               <FilePath>.\usr\usart2.c</FilePath>
             </File>
+            <File>
+              <FileName>uart4.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\uart4.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

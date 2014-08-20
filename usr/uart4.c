@@ -9,6 +9,7 @@
 __align(8) u8 UART4_TX_BUF[UART4_MAX_SEND_LEN];
 u8 UART4_RX_BUF[UART4_MAX_RECV_LEN];
 static DMA_InitTypeDef DMA_InitStructure;
+__IO u16 USART2_RX_STA=0;
 
 /**
   * @brief  Configures the different system clocks.
@@ -73,11 +74,87 @@ static void DMA_Configuration(void)
 
 }
 
+
+/**
+  * @brief  Configures the nested vectored interrupt controller.
+  * @param  None
+  * @retval None
+  */
+static void NVIC_Config_UART4(void)
+{
+  NVIC_InitTypeDef NVIC_InitStructure;
+
+  /* Configure the NVIC Preemption Priority Bits */
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+  /* Enable the USARTy Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = UART4_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+}
+
+/**
+  * @brief  Configures the nested vectored interrupt controller.
+  * @param  None
+  * @retval None
+  */
+static void NVIC_Config_TIM4(void)
+{
+  NVIC_InitTypeDef NVIC_InitStructure;
+
+  /* Configure the NVIC Preemption Priority Bits */
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+  /* Enable the USARTy Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+}
+
+static void TIM4_Init(void)
+{
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4,ENABLE);
+
+	/* Time Base configuration */
+	TIM_TimeBaseStructure.TIM_Prescaler = 7199;		//72000000/7200 = 10khz 0.1ms
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseStructure.TIM_Period = 999;			//1000*0.1 = 100ms timeout
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	//TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
+	/*Enable timer4 interrupt*/
+	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE );
+	/* Enable the USARTy Interrupt */
+	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+}
+
+void TIM4_IRQHandler(void)
+{
+	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //
+		{
+		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //clear flag
+		TIM_Cmd(TIM4, DISABLE);	// close interrupt
+		}
+}
+
+
+
 void UART4_Init(uint32_t bound)
 {
 	USART_InitTypeDef USART_InitStructure;
 	/* System Clocks Configuration */
 	RCC_Configuration();
+	/* NVIC configuration */
+	NVIC_Config_UART4();
 	/* Configure the GPIO ports */
 	GPIO_Configuration();
 	/* Configure the DMA */
@@ -97,15 +174,10 @@ void UART4_Init(uint32_t bound)
 	  USART_InitStructure.USART_Parity = USART_Parity_No;
 	  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-
 	  /* Configure USARTy */
 	  USART_Init(UART4, &USART_InitStructure);
-
-
 	  /* Enable the USARTy */
 	  USART_Cmd(UART4, ENABLE);
-
-
 	  /*Enable DMA USART2 */
 	  USART_DMACmd(UART4,USART_DMAReq_Tx,ENABLE);
 

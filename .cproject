@@ -28,7 +28,7 @@
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.424637884" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1408409729" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;C:\Keil\ARM\ARMCC\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Keil_v4\ARM\ARMCC\include&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.2073126169" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>

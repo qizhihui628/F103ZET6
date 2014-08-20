@@ -1,0 +1,24 @@
+#Wed Aug 20 19:21:42 CST 2014
+/instance/org.eclipse.cdt.ui/c_numbers=255,0,0
+/instance/org.eclipse.cdt.ui/semanticHighlighting.localVariable.enabled=true
+/instance/org.eclipse.cdt.ui/semanticHighlighting.localVariable.color=255,128,0
+\!/=
+/instance/org.eclipse.cdt.ui/semanticHighlighting.globalVariable.color=0,128,255
+/instance/org.eclipse.cdt.ui/semanticHighlighting.function.enabled=true
+/instance/org.eclipse.cdt.ui/semanticHighlighting.methodDeclaration.color=255,0,0
+/instance/org.eclipse.cdt.ui/semanticHighlighting.parameterVariable.color=255,128,0
+/instance/org.eclipse.cdt.ui/semanticHighlighting.globalVariable.enabled=true
+/instance/org.eclipse.cdt.ui/sourceHoverBackgroundColor=255,255,225
+/instance/org.eclipse.cdt.ui/semanticHighlighting.function.color=255,0,128
+/instance/org.eclipse.cdt.ui/semanticHighlighting.macroSubstitution.color=255,0,0
+/instance/org.eclipse.cdt.ui/semanticHighlighting.localVariableDeclaration.color=255,128,0
+/instance/org.eclipse.cdt.ui/semanticHighlighting.method.enabled=true
+/instance/org.eclipse.cdt.ui/semanticHighlighting.parameterVariable.enabled=true
+/instance/org.eclipse.cdt.ui/semanticHighlighting.macroDefinition.enabled=true
+/instance/org.eclipse.cdt.ui/semanticHighlighting.functionDeclaration.color=255,0,128
+/instance/org.eclipse.cdt.ui/semanticHighlighting.method.color=255,0,0
+@org.eclipse.cdt.ui=5.8.0.201406111759
+/instance/org.eclipse.cdt.ui/semanticHighlighting.macroDefinition.color=255,0,0
+/instance/org.eclipse.cdt.ui/semanticHighlighting.macroSubstitution.enabled=true
+/instance/org.eclipse.cdt.ui/semanticHighlighting.localVariableDeclaration.enabled=true
+file_export_version=3.0
