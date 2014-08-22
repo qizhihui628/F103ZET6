@@ -43,6 +43,8 @@
 ".\obj\dac.o"
 ".\obj\usart2.o"
 ".\obj\uart4.o"
+".\obj\timer4.o"
+".\obj\sim900a.o"
 --library_type=microlib --strict --scatter ".\OBJ\STM32F103.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

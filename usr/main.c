@@ -20,6 +20,7 @@
 #include "adc.h"
 #include "usart2.h"
 #include "uart4.h"
+#include "timer4.h"
 
 
 
@@ -121,7 +122,12 @@ void vTask1(void *pvParameters)
 		{
 			u2_printf("AT+HH\r\n");
 			u2_printf("BT+\r\n");
-			u4_printf("AT+HH\r\n");
+
+			if(sim900a_send_cmd("AT","OK",300) == 0)
+			{
+				u4_printf("Success \r\n");
+			}
+
 	//		u4_printf("BT+\r\n");
 			printf("GPIOE IS %x, GPIOG IS %x .\r\n",GPIOE_BUFFER,GPIOG_BUFFER);
 			for(i=0;i<10;i++)
@@ -141,11 +147,12 @@ void vTask1(void *pvParameters)
 int main(void)
 {
 	IO_Init();
+	TIM4_Init();
 	//LED_Init();
 	uart_init(9600);
 	USART2_Init(9600);
 	UART4_Init(9600);
-	Pwm_Init();
+	//Pwm_Init();
 	Dac1_Init();
 	Adc1_Init();
 	

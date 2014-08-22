@@ -9,7 +9,8 @@
 __align(8) u8 UART4_TX_BUF[UART4_MAX_SEND_LEN];
 u8 UART4_RX_BUF[UART4_MAX_RECV_LEN];
 static DMA_InitTypeDef DMA_InitStructure;
-__IO u16 USART2_RX_STA=0;
+__IO u16 UART4_Timeout = UART4_TIMOUT_MAX + 1;
+__IO u16 UART4_RX_STA=0;
 
 /**
   * @brief  Configures the different system clocks.
@@ -94,63 +95,15 @@ static void NVIC_Config_UART4(void)
   NVIC_Init(&NVIC_InitStructure);
 }
 
-/**
-  * @brief  Configures the nested vectored interrupt controller.
-  * @param  None
-  * @retval None
-  */
-static void NVIC_Config_TIM4(void)
-{
-  NVIC_InitTypeDef NVIC_InitStructure;
 
-  /* Configure the NVIC Preemption Priority Bits */
-  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
-  /* Enable the USARTy Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
-  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-}
-
-static void TIM4_Init(void)
-{
-	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4,ENABLE);
-
-	/* Time Base configuration */
-	TIM_TimeBaseStructure.TIM_Prescaler = 7199;		//72000000/7200 = 10khz 0.1ms
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseStructure.TIM_Period = 999;			//1000*0.1 = 100ms timeout
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
-	//TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
-	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
-	/*Enable timer4 interrupt*/
-	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE );
-	/* Enable the USARTy Interrupt */
-	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
-
-}
-
-void TIM4_IRQHandler(void)
-{
-	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //
-		{
-		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //clear flag
-		TIM_Cmd(TIM4, DISABLE);	// close interrupt
-		}
-}
 
 
 
 void UART4_Init(uint32_t bound)
 {
 	USART_InitTypeDef USART_InitStructure;
+	/*Init timer4*/
+//	TIM4_Init();
 	/* System Clocks Configuration */
 	RCC_Configuration();
 	/* NVIC configuration */
@@ -176,6 +129,8 @@ void UART4_Init(uint32_t bound)
 	  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 	  /* Configure USARTy */
 	  USART_Init(UART4, &USART_InitStructure);
+	  /*ENABLE USART_IT_RXNE INTERRRUPT*/
+	  USART_ITConfig(UART4,USART_IT_RXNE,ENABLE);
 	  /* Enable the USARTy */
 	  USART_Cmd(UART4, ENABLE);
 	  /*Enable DMA USART2 */
@@ -210,4 +165,25 @@ void u4_printf(char* fmt,...)
 }
 
 
+
+
+void UART4_IRQHandler(void)
+{
+	u8 res;
+	if(USART_GetFlagStatus(UART4,USART_FLAG_RXNE) != RESET)
+	{
+		res = USART_ReceiveData(UART4);
+		if(UART4_RX_STA < UART4_MAX_RECV_LEN )
+		{
+			UART4_Timeout = 0;		//reset timeout
+			UART4_RX_BUF[UART4_RX_STA++]=res;	//receive data
+		}
+		else
+		{
+			UART4_RX_STA|=1<<15;
+		}
+
+		//USART_SendData(UART4,res);
+	}
+}
 
