@@ -55,3 +55,22 @@ u8 sim900a_send_cmd(u8 *cmd,u8 *ack,u16 waittime)
 	return res;
 }
 
+
+const u8 *port = "8086";//port
+u8 mode = 0; //0->TCP,1->UDP
+u8 ipbuf[16];	//ip buffer
+u8 iplen = 0;	//ip length
+u8 sim900a_gprs_test(void)
+{
+ 	sim900a_send_cmd("AT+CIPCLOSE=1","CLOSE OK",100);	//关闭连接
+	sim900a_send_cmd("AT+CIPSHUT","SHUT OK",100);		//关闭移动场景
+	if(sim900a_send_cmd("AT+CGCLASS=\"B\"","OK",1000))return 1;				//设置GPRS移动台类别为B,支持包交换和数据交换
+	if(sim900a_send_cmd("AT+CGDCONT=1,\"IP\",\"CMNET\"","OK",1000))return 2;//设置PDP上下文,互联网接协议,接入点等信息
+	if(sim900a_send_cmd("AT+CGATT=1","OK",500))return 3;					//附着GPRS业务
+	if(sim900a_send_cmd("AT+CIPCSGP=1,\"CMNET\"","OK",500))return 4;	 	//设置为GPRS连接模式
+	if(sim900a_send_cmd("AT+CIPHEAD=1","OK",500))return 5;	 				//设置接收数据显示IP头(方便判断数据来源)
+	return 0;
+}
+
+
+

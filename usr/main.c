@@ -125,7 +125,8 @@ void vTask1(void *pvParameters)
 
 			if(sim900a_send_cmd("AT","OK",300) == 0)
 			{
-				u4_printf("Success \r\n");
+				printf("Success \r\n");
+				printf("grprs result is %d\r\n",sim900a_gprs_test());
 			}
 
 	//		u4_printf("BT+\r\n");
@@ -151,7 +152,7 @@ int main(void)
 	//LED_Init();
 	uart_init(9600);
 	USART2_Init(9600);
-	UART4_Init(9600);
+	UART4_Init(115200);
 	//Pwm_Init();
 	Dac1_Init();
 	Adc1_Init();

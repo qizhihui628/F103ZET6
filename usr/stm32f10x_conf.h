@@ -23,7 +23,9 @@
 #ifndef __STM32F10x_CONF_H
 #define __STM32F10x_CONF_H
 
+#ifndef STM32F10X_HD
 #define STM32F10X_HD
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 /* Uncomment/Comment the line below to enable/disable peripheral header file inclusion */

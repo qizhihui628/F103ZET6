@@ -4,18 +4,9 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\jeqi\Documents\F103ZET6\STM32F103.uvproj
-Project File Date:  08/18/2014
+Project File Date:  08/27/2014
 
 <h2>Output:</h2>
-Build target 'Target 1'
-linking...
-Program Size: Code=23140 RO-data=336 RW-data=164 ZI-data=21252  
-FromELF: creating hex file...
-After Build - User command #1: .\bat.bat
-C:\Users\jeqi\Documents\F103ZET6>del OBJ\*.o 
-C:\Users\jeqi\Documents\F103ZET6>del OBJ\*.d 
-C:\Users\jeqi\Documents\F103ZET6>del OBJ\*.crf 
-".\OBJ\STM32F103.axf" - 0 Error(s), 0 Warning(s).
 Load "C:\\Users\\jeqi\\Documents\\F103ZET6\\OBJ\\STM32F103.axf" 
 Set JLink Project File to "C:\Users\jeqi\Documents\F103ZET6\JLinkSettings.ini"
 * JLink Info: Device "STM32F103ZE" selected (512 KB flash, 64 KB RAM).
@@ -28,8 +19,8 @@ Hardware: V8.00
 S/N : 20100213 
 Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFULL 
  
-* JLink Info: Found SWD-DP with ID 0x1BA01477
-* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TotalIRLen = 9, IRPrint = 0x0011
+* JLink Info: TotalIRLen = 9, IRPrint = 0x0011
 * JLink Info: Found Cortex-M3 r1p1, Little endian.
 * JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
 * JLink Info: TPIU fitted.
@@ -39,13 +30,13 @@ ROMTableAddr = 0xE00FF003
 Target info:
 ------------
 Device: STM32F103ZE
-VTarget = 3.332V
+VTarget = 3.325V
 State of Pins: 
-TCK: 0, TDI: 1, TDO: 1, TMS: 1, TRES: 1, TRST: 1
+TCK: 1, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
-JTAG speed: 4000 kHz
+JTAG speed: 9600 kHz
  
 Erase Done.
 Programming Done.
@@ -53,203 +44,3 @@ Verify OK.
 </pre>
 </body>
 </html>
-o: TPIU fitted.
-* JLink Info: ETM fitted.
-ROMTableAddr = 0xE00FF003
- 
-Target info:
-------------
-Device: STM32F103ZE
-VTarget = 3.332V
-State of Pins: 
-TCK: 0, TDI: 1, TDO: 1, TMS: 1, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 4000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-ta=164 ZI-data=21252  
-FromELF: creating hex file...
-".\OBJ\STM32F103.axf" - 0 Error(s), 12 Warning(s).
-ov 25 2013 19:20:08
-Hardware: V8.00
-S/N : 20100213 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFULL 
- 
-* JLink Info: Found SWD-DP with ID 0x1BA01477
-* JLink Info: Found SWD-DP with ID 0x1BA01477
-* JLink Info: Found Cortex-M3 r1p1, Little endian.
-* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-ROMTableAddr = 0xE00FF003
- 
-Target info:
-------------
-Device: STM32F103ZE
-VTarget = 3.332V
-State of Pins: 
-TCK: 0, TDI: 1, TDO: 1, TMS: 1, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 4000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-
-Device: STM32F103ZE
-VTarget = 3.325V
-State of Pins: 
-TCK: 0, TDI: 1, TDO: 1, TMS: 1, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 4000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_flash.c: 1 warning, 0 errors
-compiling stm32f10x_fsmc.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_fsmc.c: 1 warning, 0 errors
-compiling stm32f10x_gpio.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c: 1 warning, 0 errors
-compiling stm32f10x_i2c.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_i2c.c: 1 warning, 0 errors
-compiling stm32f10x_iwdg.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_iwdg.c: 1 warning, 0 errors
-compiling stm32f10x_pwr.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_pwr.c: 1 warning, 0 errors
-compiling stm32f10x_rcc.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c: 1 warning, 0 errors
-compiling stm32f10x_rtc.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rtc.c: 1 warning, 0 errors
-compiling stm32f10x_sdio.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_sdio.c: 1 warning, 0 errors
-compiling stm32f10x_spi.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_spi.c: 1 warning, 0 errors
-compiling stm32f10x_tim.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c: 1 warning, 0 errors
-compiling stm32f10x_usart.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c: 1 warning, 0 errors
-compiling stm32f10x_wwdg.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_wwdg.c: 1 warning, 0 errors
-assembling startup_stm32f10x_hd_rtos.s...
-compiling main.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\main.c(80): warning:  #111-D: statement is unreachable
-        vTaskDelete(NULL);
-usr\main.c(102): warning:  #111-D: statement is unreachable
-        vTaskDelete(NULL);
-usr\main.c(108): warning:  #550-D: variable "temp1" was set but never used
-        uint16_t temp1,temp2;
-usr\main.c(108): warning:  #550-D: variable "temp2" was set but never used
-        uint16_t temp1,temp2;
-usr\main.c: 5 warnings, 0 errors
-compiling stm32f10x_it.c...
-.\usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\stm32f10x_it.c: 1 warning, 0 errors
-compiling usart.c...
-usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\usart.c: 1 warning, 0 errors
-compiling vPrintString.c...
-compiling GPIO.c...
-usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\GPIO.c: 1 warning, 0 errors
-compiling pwm.c...
-usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\pwm.c: 1 warning, 0 errors
-compiling adc.c...
-usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\adc.c: 1 warning, 0 errors
-compiling dac.c...
-usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\dac.c: 1 warning, 0 errors
-compiling usart2.c...
-usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\usart2.c(137): warning:  #223-D: function "vTaskDelay" declared implicitly
-                vTaskDelay(1/portTICK_RATE_MS); //check if tx finished
-usr\usart2.c: 2 warnings, 0 errors
-compiling uart4.c...
-usr\stm32f10x_conf.h(26): warning:  #47-D: incompatible redefinition of macro "STM32F10X_HD"
-  #define STM32F10X_HD
-usr\uart4.c(186): warning:  #223-D: function "vTaskDelay" declared implicitly
-                vTaskDelay(1/portTICK_RATE_MS); //check if tx finished
-usr\uart4.c: 2 warnings, 0 errors
-linking...
-Program Size: Code=22764 RO-data=336 RW-data=160 ZI-data=21256  
-FromELF: creating hex file...
-".\OBJ\STM32F103.axf" - 0 Error(s), 39 Warning(s).
-Load "C:\\Users\\jeqi\\Documents\\F103ZET6\\OBJ\\STM32F103.axf" 
-Set JLink Project File to "C:\Users\jeqi\Documents\F103ZET6\JLinkSettings.ini"
-* JLink Info: Device "STM32F103ZE" selected (512 KB flash, 64 KB RAM).
- 
-JLink info:
-------------
-DLL: V4.80g, compiled Feb 13 2014 20:50:02
-Firmware: J-Link ARM V8 compiled Nov 25 2013 19:20:08
-Hardware: V8.00
-S/N : 20100213 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFULL 
- 
-* JLink Info: Found SWD-DP with ID 0x1BA01477
-* JLink Info: Found SWD-DP with ID 0x1BA01477
-* JLink Info: Found Cortex-M3 r1p1, Little endian.
-* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-ROMTableAddr = 0xE00FF003
- 
-Target info:
-------------
-Device: STM32F103ZE
-VTarget = 3.325V
-State of Pins: 
-TCK: 0, TDI: 1, TDO: 1, TMS: 1, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 4000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
