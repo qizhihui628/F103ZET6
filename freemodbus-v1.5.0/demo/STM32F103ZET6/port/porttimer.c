@@ -21,6 +21,7 @@
 
 /* ----------------------- Platform includes --------------------------------*/
 #include "port.h"
+#include "stm32f10x_conf.h"
 
 /* ----------------------- Modbus includes ----------------------------------*/
 #include "mb.h"
@@ -33,6 +34,27 @@ static void prvvTIMERExpiredISR( void );
 BOOL
 xMBPortTimersInit( USHORT usTim1Timerout50us )
 {
+	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);
+
+	/* Time Base configuration */
+	TIM_TimeBaseStructure.TIM_Prescaler = 7199;		//72000000/7200 = 10khz 0.1ms
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseStructure.TIM_Period = 99;			//100*0.1 = 10ms timeout
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+	//TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
+	/*Enable timer4 interrupt*/
+	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE );
+	/* Enable the USARTy Interrupt */
+	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+
+	TIM_Cmd(TIM4, ENABLE);	// close interrupt
     return FALSE;
 }
 
