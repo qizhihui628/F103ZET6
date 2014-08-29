@@ -39,36 +39,57 @@ xMBPortTimersInit( USHORT usTim1Timerout50us )
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);
 
 	/* Time Base configuration */
-	TIM_TimeBaseStructure.TIM_Prescaler = 7199;		//72000000/7200 = 10khz 0.1ms
+	TIM_TimeBaseStructure.TIM_Prescaler = 3599;		//72000000/3600 = 20khz 50uS
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseStructure.TIM_Period = 99;			//100*0.1 = 10ms timeout
+	TIM_TimeBaseStructure.TIM_Period = usTim1Timerout50us;			//100*0.1 = 10ms timeout
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	//TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
-	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
-	/*Enable timer4 interrupt*/
-	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE );
+	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+	/*预装载功能使能*/
+	TIM_ARRPreloadConfig(TIM2,ENABLE);
+
+	/*2 bits for pre-emption priority  2 bits for subpriority*/
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+
 	/* Enable the USARTy Interrupt */
-	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 
-	TIM_Cmd(TIM4, ENABLE);	// close interrupt
-    return FALSE;
+	//清除溢出中断标志位
+	TIM_ClearITPendingBit(TIM2,TIM_IT_Update);
+	/*Disable timer4 interrupt*/
+	TIM_ITConfig(TIM2,TIM_IT_Update,DISABLE );
+
+	TIM_Cmd(TIM2, DISABLE);	// close interrupt
+    return TRUE;
 }
 
 
 inline void
 vMBPortTimersEnable(  )
 {
-    /* Enable the timer with the timeout passed to xMBPortTimersInit( ) */
+	/* Enable the timer with the timeout passed to xMBPortTimersInit( ) */
+	TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
+	//设定定时器4的初始值
+	TIM_SetCounter(TIM2, 0x0000);
+	//定时器4启动
+	TIM_Cmd(TIM2, ENABLE);
+
 }
 
 inline void
 vMBPortTimersDisable(  )
 {
-    /* Disable any pending timers. */
+	/* Disable any pending timers. */
+	TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
+	TIM_ITConfig(TIM4, TIM_IT_Update, DISABLE);
+	TIM_SetCounter(TIM4, 0x0000);
+	//关闭定时器4
+	TIM_Cmd(TIM4, DISABLE);
 }
 
 /* Create an ISR which is called whenever the timer has expired. This function
@@ -78,5 +99,17 @@ vMBPortTimersDisable(  )
 static void prvvTIMERExpiredISR( void )
 {
     ( void )pxMBPortCBTimerExpired(  );
+}
+
+
+void TIM4_IRQHandler(void)
+{
+  if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
+  {
+    //清除定时器T4溢出中断标志位
+    TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+
+    prvvTIMERExpiredISR( );
+  }
 }
 
