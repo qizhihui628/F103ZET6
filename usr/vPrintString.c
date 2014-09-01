@@ -8,6 +8,8 @@ void vPrint_init(void)
 	xMutex_vPrintString = xSemaphoreCreateMutex();
 }
 
+
+#if 0
 void vPrintString(const portCHAR *pcString)
 {
 	xSemaphoreTake(xMutex_vPrintString,portMAX_DELAY);
@@ -24,3 +26,4 @@ void vPrintString(const portCHAR *pcString)
 	}
 #endif
 }
+#endif

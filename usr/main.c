@@ -24,84 +24,15 @@
 
 
 
-
 extern void Pwm_Init(void);
 extern xSemaphoreHandle xMutex_vPrintString;
 extern __IO uint16_t ADC1ConvertedValue[10];
 
-void LED_Init(void)
-{
- 
- GPIO_InitTypeDef  GPIO_InitStructure;
- 	
- RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOE, ENABLE);	 //使能PB,PE端口时钟
-	
- GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;				 //LED0-->PB.5 端口配置
- GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
- GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
- GPIO_Init(GPIOB, &GPIO_InitStructure);					 //根据设定参数初始化GPIOB.5
- GPIO_SetBits(GPIOB,GPIO_Pin_5);						 //PB.5 输出高
 
- GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;	    		 //LED1-->PE.5 端口配置, 推挽输出
- GPIO_Init(GPIOE, &GPIO_InitStructure);	  				 //推挽输出 ，IO口速度为50MHz
- GPIO_SetBits(GPIOE,GPIO_Pin_5); 						 //PE.5 输出高 
-}
-
-void delay(uint16_t j)
-{
-	uint16_t i = 2048;
-	while(j--)
-	{
-		while(i--);
-	}
-	
-
-}
 
 xSemaphoreHandle xMutex;
 
-void vRed_led_on(void *pvParameters)
-{
-	
-	/* static 所有实例共享这个变量*/
-//	int iVariableExample = 0; 
-	for(;;)
-	{
-		if(xSemaphoreTake(xMutex,( portTickType ) 10) == pdTRUE)
-		{
-			GPIO_ResetBits(GPIOB,GPIO_Pin_5);
-			GPIO_SetBits(GPIOE,GPIO_Pin_5);
-			vPrintString("vRed_led_on task . \r\n");
-			vTaskDelay(500/portTICK_RATE_MS);
-			xSemaphoreGive(xMutex);
-		}
-		vTaskDelay(100/portTICK_RATE_MS);
 
-	}
-	vTaskDelete(NULL);
-}
-
-
-void vGreen_led_on(void *pvParameters)
-{
-	
-	/* static 所有实例共享这个变量*/
-/*	int iVariableExample = 0; */
-	for(;;)
-	{
-		if(xSemaphoreTake(xMutex,( portTickType ) 10) == pdTRUE)
-		{
-			GPIO_SetBits(GPIOB,GPIO_Pin_5);
-			GPIO_ResetBits(GPIOE,GPIO_Pin_5);
-			vPrintString("vGreen_led_on task . \r\n");
-			vTaskDelay(500/portTICK_RATE_MS);
-			xSemaphoreGive(xMutex);
-		}
-		vTaskDelay(100/portTICK_RATE_MS);
-
-	}
-	vTaskDelete(NULL);
-}
 
 void vTask1(void *pvParameters)
 {
@@ -125,15 +56,15 @@ void vTask1(void *pvParameters)
 
 			if(sim900a_send_cmd("AT","OK",300) == 0)
 			{
-				printf("Success \r\n");
-				printf("grprs result is %d\r\n",sim900a_gprs_test());
+				u1_printf("Success \r\n");
+				u1_printf("grprs result is %d\r\n",sim900a_gprs_test());
 			}
 
 	//		u4_printf("BT+\r\n");
-			printf("GPIOE IS %x, GPIOG IS %x .\r\n",GPIOE_BUFFER,GPIOG_BUFFER);
+			u1_printf("GPIOE IS %x, GPIOG IS %x .\r\n",GPIOE_BUFFER,GPIOG_BUFFER);
 			for(i=0;i<10;i++)
 			{
-				printf("adc%d is %d.\r\n",i,ADC1ConvertedValue[i]);
+				u1_printf("adc%d is %d.\r\n",i,ADC1ConvertedValue[i]);
 			}
 			fflush(stdout);
 		}
@@ -147,16 +78,17 @@ void vTask1(void *pvParameters)
 
 int main(void)
 {
-	IO_Init();
-	TIM4_Init();
+	//IO_Init();
+	//TIM4_Init();
 	//LED_Init();
-	uart_init(9600);
-	USART2_Init(9600);
-	UART4_Init(115200);
+	usart1_config(9600);
+//	USART2_Init(9600);
+//	UART4_Init(115200);
 	//Pwm_Init();
-	Dac1_Init();
-	Adc1_Init();
-	
+//	Dac1_Init();
+//	Adc1_Init();
+	u1_printf("init is ok \r\n");
+	for(;;)	u1_printf("init is ok \r\n");
 	vSemaphoreCreateBinary(xMutex);
 //	vSemaphoreCreateBinary(xMutex_vPrintString);
 	vPrint_init();
@@ -166,8 +98,6 @@ int main(void)
 		//xTaskCreate(vGreen_led_on,"vGreen_led_on",100,NULL,2,NULL);
 	}
 	xTaskCreate(vTask1,"vTask1",200,NULL,1,NULL);
-	xTaskCreate(vIO_Refresh,"vIO_Refresh",50,NULL,2,NULL);
-	xTaskCreate(vPWM_Refresh,"vPWM_Refresh",50,NULL,2,NULL);
 	vTaskStartScheduler();
 	for(;;);
 	

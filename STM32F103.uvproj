@@ -130,7 +130,7 @@
           <Target>
             <UseTarget>1</UseTarget>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>1</RunToMain>
+            <RunToMain>0</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
             <RestoreWatchpoints>1</RestoreWatchpoints>
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
@@ -210,7 +210,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <RoSelD>3</RoSelD>
@@ -569,11 +569,6 @@
           <GroupName>usr</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\usr\main.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\usr\stm32f10x_it.c</FilePath>
@@ -582,11 +577,6 @@
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\usr\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>vPrintString.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\usr\vPrintString.c</FilePath>
             </File>
             <File>
               <FileName>GPIO.c</FileName>
@@ -609,14 +599,19 @@
               <FilePath>.\usr\dac.c</FilePath>
             </File>
             <File>
-              <FileName>usart2.c</FileName>
+              <FileName>sim900a.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\usr\usart2.c</FilePath>
+              <FilePath>.\usr\sim900a.c</FilePath>
             </File>
             <File>
-              <FileName>uart4.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\usr\uart4.c</FilePath>
+              <FilePath>.\usr\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>nvic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\nvic.c</FilePath>
             </File>
             <File>
               <FileName>timer4.c</FileName>
@@ -624,9 +619,19 @@
               <FilePath>.\usr\timer4.c</FilePath>
             </File>
             <File>
-              <FileName>sim900a.c</FileName>
+              <FileName>uart4.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\usr\sim900a.c</FilePath>
+              <FilePath>.\usr\uart4.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\usart2.c</FilePath>
+            </File>
+            <File>
+              <FileName>vPrintString.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\vPrintString.c</FilePath>
             </File>
           </Files>
         </Group>
