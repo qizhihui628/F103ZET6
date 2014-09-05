@@ -68,7 +68,7 @@ xMBPortTimersInit( USHORT usTim1Timerout50us )
 }
 
 
-inline void
+void
 vMBPortTimersEnable(  )
 {
 	/* Enable the timer with the timeout passed to xMBPortTimersInit( ) */
@@ -81,8 +81,8 @@ vMBPortTimersEnable(  )
 
 }
 
-inline void
-vMBPortTimersDisable(  )
+void
+vMBPortTimersDisable( void )
 {
 	/* Disable any pending timers. */
 	TIM_ClearITPendingBit(TIM4, TIM_IT_Update);
@@ -102,7 +102,7 @@ static void prvvTIMERExpiredISR( void )
 }
 
 
-void TIM4_IRQHandler(void)
+void TIM2_IRQHandler(void)
 {
   if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
   {

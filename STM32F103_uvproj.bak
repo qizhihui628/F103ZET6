@@ -128,23 +128,22 @@
             <RestoreFunctions>1</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
             <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
-            <RestoreSysVw>1</RestoreSysVw>
           </Simulator>
           <Target>
             <UseTarget>1</UseTarget>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
-            <RunToMain>1</RunToMain>
+            <RunToMain>0</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
             <RestoreWatchpoints>1</RestoreWatchpoints>
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
+            <RestoreTracepoints>0</RestoreTracepoints>
             <RestoreTracepoints>1</RestoreTracepoints>
-            <RestoreSysVw>1</RestoreSysVw>
-            <UsePdscDebugDescription>0</UsePdscDebugDescription>
+            <RestoreTracepoints>1</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>7</TargetSelection>
+          <TargetSelection>6</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -170,7 +169,7 @@
             <Capability>1</Capability>
             <DriverSelection>4099</DriverSelection>
           </Flash1>
-          <bUseTDR>1</bUseTDR>
+          <bUseTDR>0</bUseTDR>
           <Flash2>Segger\JL2CM3.dll</Flash2>
           <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
@@ -586,11 +585,6 @@
           <GroupName>usr</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\usr\main.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\usr\stm32f10x_it.c</FilePath>
@@ -599,11 +593,6 @@
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\usr\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>vPrintString.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\usr\vPrintString.c</FilePath>
             </File>
             <File>
               <FileName>GPIO.c</FileName>
@@ -626,14 +615,19 @@
               <FilePath>.\usr\dac.c</FilePath>
             </File>
             <File>
-              <FileName>usart2.c</FileName>
+              <FileName>sim900a.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\usr\usart2.c</FilePath>
+              <FilePath>.\usr\sim900a.c</FilePath>
             </File>
             <File>
-              <FileName>uart4.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\usr\uart4.c</FilePath>
+              <FilePath>.\usr\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>nvic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\nvic.c</FilePath>
             </File>
             <File>
               <FileName>timer4.c</FileName>
@@ -641,9 +635,19 @@
               <FilePath>.\usr\timer4.c</FilePath>
             </File>
             <File>
-              <FileName>sim900a.c</FileName>
+              <FileName>uart4.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\usr\sim900a.c</FilePath>
+              <FilePath>.\usr\uart4.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\usart2.c</FilePath>
+            </File>
+            <File>
+              <FileName>vPrintString.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\usr\vPrintString.c</FilePath>
             </File>
           </Files>
         </Group>

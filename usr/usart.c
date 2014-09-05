@@ -7,7 +7,7 @@ char u1_rxbuffer[U1_RxBufferSize];
 u8 u1_txcounter = 0;
 u8 u1_rxcounter = 0;
 
-__IO u16 u1_txlength = 0;
+__IO u32 u1_txlength = 0;
 __IO u16 u1_rxlength = 0;
 
 static void RCC_Configuration(void);

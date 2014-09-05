@@ -50,5 +50,6 @@ typedef int32_t LONG;
 #ifndef FALSE
 #define FALSE           0
 #endif
-
+extern void vMBPortTimersDisable(void);
+extern void vMBPortTimersEnable(void);
 #endif
