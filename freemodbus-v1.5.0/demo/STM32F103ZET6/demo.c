@@ -32,6 +32,7 @@ static USHORT   usRegInputStart = REG_INPUT_START;
 static USHORT   usRegInputBuf[REG_INPUT_NREGS];
 
 /* ----------------------- Start implementation -----------------------------*/
+#if 0
 int
 main( void )
 {
@@ -50,6 +51,7 @@ main( void )
         usRegInputBuf[0]++;
     }
 }
+#endif
 
 eMBErrorCode
 eMBRegInputCB( UCHAR * pucRegBuffer, USHORT usAddress, USHORT usNRegs )

@@ -66,7 +66,7 @@ void vTask1(void *pvParameters)
 			{
 				u1_printf("adc%d is %d.\r\n",i,ADC1ConvertedValue[i]);
 			}
-			fflush(stdout);
+	//		fflush(stdout);
 		}
 		xSemaphoreGive(xMutex_vPrintString);
 

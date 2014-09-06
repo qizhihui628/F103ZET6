@@ -254,9 +254,9 @@ ARM Macro Assembler    Page 4
 ]
   152 00000000                 IMPORT           __main
   153 00000000                 IMPORT           SystemInit
-  154 00000000 4806            LDR              R0, =SystemInit
+  154 00000000 4809            LDR              R0, =SystemInit
   155 00000002 4780            BLX              R0
-  156 00000004 4806            LDR              R0, =__main
+  156 00000004 4809            LDR              R0, =__main
   157 00000006 4700            BX               R0
 
 
@@ -544,22 +544,34 @@ ARM Macro Assembler    Page 9
   335 0000001C         ;*******************************************************
                        ************************
   336 0000001C                 IF               :DEF:__MICROLIB
-  337 0000001C         
-  338 0000001C                 EXPORT           __initial_sp
-  339 0000001C                 EXPORT           __heap_base
-  340 0000001C                 EXPORT           __heap_limit
-  341 0000001C         
-  342 0000001C                 ELSE
-  357                          ENDIF
-  358 0000001C         
-  359 0000001C                 END
+  343 0000001C         
+  344 0000001C                 IMPORT           __use_two_region_memory
+  345 0000001C                 EXPORT           __user_initial_stackheap
+  346 0000001C         
+  347 0000001C         __user_initial_stackheap
+  348 0000001C         
+  349 0000001C 4804            LDR              R0, =  Heap_Mem
+  350 0000001E 4905            LDR              R1, =(Stack_Mem + Stack_Size)
+  351 00000020 4A05            LDR              R2, = (Heap_Mem +  Heap_Size)
+  352 00000022 4B06            LDR              R3, = Stack_Mem
+  353 00000024 4770            BX               LR
+  354 00000026         
+  355 00000026 00 00           ALIGN
+  356 00000028         
+  357 00000028                 ENDIF
+  358 00000028         
+  359 00000028                 END
               00000000 
               00000000 
-Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\OBJ\st
-artup_stm32f10x_hd_rtos.d -o.\OBJ\startup_stm32f10x_hd_rtos.o -IC:\Keil\ARM\RV3
-1\Inc -IC:\Keil\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --list=.\star
-tup_stm32f10x_hd_rtos.lst Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
-p\arm\startup_stm32f10x_hd_rtos.s
+              00000000 
+              00000400 
+              00000200 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\obj\st
+artup_stm32f10x_hd_rtos.d -o.\obj\startup_stm32f10x_hd_rtos.o -IC:\Keil_v4\ARM\
+RV31\INC -IC:\Keil_v4\ARM\CMSIS\Include -IDevice\Include --list=.\startup_stm32
+f10x_hd_rtos.lst Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\arm\sta
+rtup_stm32f10x_hd_rtos.s
 
 
 
@@ -582,8 +594,11 @@ Symbol: Stack_Mem
       At line 38 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup
 \arm\startup_stm32f10x_hd_rtos.s
    Uses
-      None
-Comment: Stack_Mem unused
+      At line 350 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+      At line 352 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+
 __initial_sp 00000400
 
 Symbol: __initial_sp
@@ -593,9 +608,7 @@ Symbol: __initial_sp
    Uses
       At line 65 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup
 \arm\startup_stm32f10x_hd_rtos.s
-      At line 338 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
-p\arm\startup_stm32f10x_hd_rtos.s
-
+Comment: __initial_sp used once
 3 symbols
 
 
@@ -619,8 +632,11 @@ Symbol: Heap_Mem
       At line 49 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup
 \arm\startup_stm32f10x_hd_rtos.s
    Uses
-      None
-Comment: Heap_Mem unused
+      At line 349 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+      At line 351 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+
 __heap_base 00000000
 
 Symbol: __heap_base
@@ -628,9 +644,8 @@ Symbol: __heap_base
       At line 48 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup
 \arm\startup_stm32f10x_hd_rtos.s
    Uses
-      At line 339 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
-p\arm\startup_stm32f10x_hd_rtos.s
-Comment: __heap_base used once
+      None
+Comment: __heap_base unused
 __heap_limit 00000200
 
 Symbol: __heap_limit
@@ -638,9 +653,8 @@ Symbol: __heap_limit
       At line 50 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup
 \arm\startup_stm32f10x_hd_rtos.s
    Uses
-      At line 340 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
-p\arm\startup_stm32f10x_hd_rtos.s
-Comment: __heap_limit used once
+      None
+Comment: __heap_limit unused
 4 symbols
 
 
@@ -1624,7 +1638,17 @@ p\arm\startup_stm32f10x_hd_rtos.s
       At line 206 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
 p\arm\startup_stm32f10x_hd_rtos.s
 
-72 symbols
+__user_initial_stackheap 0000001C
+
+Symbol: __user_initial_stackheap
+   Definitions
+      At line 347 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+   Uses
+      At line 345 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+Comment: __user_initial_stackheap used once
+73 symbols
 
 
 
@@ -1640,7 +1664,9 @@ Symbol: Heap_Size
    Uses
       At line 49 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup
 \arm\startup_stm32f10x_hd_rtos.s
-Comment: Heap_Size used once
+      At line 351 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+
 Stack_Size 00000400
 
 Symbol: Stack_Size
@@ -1650,7 +1676,9 @@ Symbol: Stack_Size
    Uses
       At line 38 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup
 \arm\startup_stm32f10x_hd_rtos.s
-Comment: Stack_Size used once
+      At line 350 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+
 __Vectors_Size 00000130
 
 Symbol: __Vectors_Size
@@ -1688,6 +1716,15 @@ p\arm\startup_stm32f10x_hd_rtos.s
       At line 156 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
 p\arm\startup_stm32f10x_hd_rtos.s
 Comment: __main used once
+__use_two_region_memory 00000000
+
+Symbol: __use_two_region_memory
+   Definitions
+      At line 344 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startu
+p\arm\startup_stm32f10x_hd_rtos.s
+   Uses
+      None
+Comment: __use_two_region_memory unused
 vPortSVCHandler 00000000
 
 Symbol: vPortSVCHandler
@@ -1718,5 +1755,11 @@ Symbol: xPortSysTickHandler
       At line 80 in file Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup
 \arm\startup_stm32f10x_hd_rtos.s
 Comment: xPortSysTickHandler used once
-5 symbols
-423 symbols in table
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+External symbols
+
+6 symbols
+426 symbols in table
